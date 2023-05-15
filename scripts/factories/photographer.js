@@ -1,29 +1,42 @@
 function photographerFactory(data) {
     const { name, portrait, city, country, tagline, price, id } = data;
 
+    console.log(id)
+
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
+
+        //declaration ds élément du DOM
         const article = document.createElement( 'article' );
+        const link = document.createElement('a');
         const img = document.createElement( 'img' );
-        img.setAttribute(`src`, picture)
-        img.setAttribute(`alt`, `Photo de ${name}`)
         const h2 = document.createElement( 'h2' );
-        h2.textContent = name;
         const h3 = document.createElement( 'h3' );
-        h3.textContent = `${city}, ${country} `;
         const h4 = document.createElement ( 'h4');
-        h4.textContent = tagline;
         const p = document.createElement ('p');
+
+        //attribution des valeurs
+        link.setAttribute('href', `photographer.html?id=${id}`);
+        // link.href = '/photographer.html?id='+id;
+        img.setAttribute(`src`, picture);
+        img.setAttribute(`alt`, `Photo de ${name}`);
+        h2.textContent = name;
+        h3.textContent = `${city}, ${country} `;
+        h4.textContent = tagline;
         p.textContent = `${price}€/jour`;
 
-        article.appendChild(img);
-        article.appendChild(h2);
-        article.appendChild(h3);
-        article.appendChild(h4);
-        article.appendChild(p);
+        //création du profil photographe
+        article.appendChild(link);
+        // link.appendChild(article);
+        link.appendChild(img);
+        link.appendChild(h2);
+        link.appendChild(h3);
+        link.appendChild(h4);
+        link.appendChild(p);
+        // link.appendChild(img);
 
         return (article);
     }
-    return { name, picture, city, country, tagline, price, getUserCardDOM }
+    return { name, picture, getUserCardDOM }
 }
