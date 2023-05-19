@@ -9,25 +9,53 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html" aria-label="lien vers la page d'accueil"><img src="assets/images/logo.png" class="logo" alt="logo Fisheye" /></a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
+        <div class="photographer-info">
+          <div class="photographer-name">
+            <h1>Name</h1>
+          </div>
+        </div>
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="photo-profile">ici la photo</div>
+      </div>
+      <div class="photograph-sort">
+        <label for="sort_by" id="tri">Trier par :</label>
+          <select name="tri" id="sort_by">
+            <option value="Popularité">Popularité</option>
+            <option value="Date">Date</option>
+            <option value="Titre">Titre</option>
+          </select>
       </div>
     </main>
     <div class="photographer-galery"></div>
-    <div id="contact_modal">
+
+    <!-- modal form -->
+    <div id="contact_modal" role="dialog" aria-hidden="true" aria-describedby="Formulaire de contact">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <h2 id="modalTitle" class="modal-title">Contactez-moi</h2>
+          <img src="assets/icons/close.svg" onclick="closeModal()" alt="Button fermeture formulaire de contact"/>
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="prenom">Prénom</label>
+						<input type="text" name="prenom" id="prenom" required/>
 					</div>
+          <div>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" id="nom" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+          </div>
+          <div>
+            <label for="message">Votre message</label>
+            <textarea name="message" id="message" cols="30" rows="10" requires></textarea>
+          </div>
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>
