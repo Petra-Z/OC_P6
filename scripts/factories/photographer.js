@@ -7,7 +7,7 @@ function photographerFactory(data) {
 
     function getUserCardDOM() {
 
-        //declaration ds élément du DOM
+        //declaration des élémente du DOM
         const article = document.createElement( 'article' );
         const link = document.createElement('a');
         const img = document.createElement( 'img' );
@@ -26,7 +26,7 @@ function photographerFactory(data) {
         h4.textContent = tagline;
         p.textContent = `${price}€/jour`;
 
-        //création du profil photographe
+        //construction du profil photographe
         article.appendChild(link);
         // link.appendChild(article);
         link.appendChild(img);

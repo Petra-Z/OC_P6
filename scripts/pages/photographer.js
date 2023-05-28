@@ -4,6 +4,7 @@
 const getParam = () => {
     let search = window.location.search
     let result = new URLSearchParams(search).get('id')
+    console.log(result)
 
     if (result != null) {
         return result
@@ -12,31 +13,40 @@ const getParam = () => {
     return false
 }
 
-getParam();
+// getParam();
 
 const photographerId = getParam();
-const photographer = async (id) => {
-    await getPhotographerById(id);
-}
+
+console.log(photographerId)
+
 
 const getPhotographerById = async (id) => {
     const response = await fetch("/data/photographers.json");
     const data = await response.json();
     const photographersList = data.photographers
     //on boucle sur la liste des photographes et on retrouve le photographe par son id
-    console.log(data.photographers);
+    // console.log(data.photographers);
 
     let p = {};
-    photographersList.map(element => {
-        if(element.id == id) {
-            p = element
-        }
-    })
+    p = photographersList.filter(element => element.id == id )
+    console.log(p)
+    return p[0];
+}
+const photographer = getPhotographerById(photographerId).then(result => {
+    console.log(result)
+    displayPhotographer(result)
+}).catch(error => console.log(error))
 
-    displayPhotographerDol(p);
+
+
+
+async function displayPhotographer(photographer) {
+    const photographerHeader = document.querySelector(".photograph_header");
+    console.log(photographer)
+    // // const contactButton = document.querySelector(".contact_button");
+    const photographerDetails = photographerPageFactory(photographer);
+    const photographerPageDOM = photographerDetails.getPhotographerPageDOM();
+    photographerHeader.appendChild(photographerPageDOM)
 }
 
-const displayPhotographerDom = (photographer) => {
-    
-}
 
