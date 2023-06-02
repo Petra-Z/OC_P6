@@ -43,10 +43,12 @@ const photographer = getPhotographerById(photographerId).then(result => {
 async function displayPhotographer(photographer) {
     const photographerHeader = document.querySelector(".photograph_header");
     console.log(photographer)
-    // // const contactButton = document.querySelector(".contact_button");
+    const contactButton = document.querySelector(".contact_button");
     const photographerDetails = photographerPageFactory(photographer);
     const photographerPageDOM = photographerDetails.getPhotographerPageDOM();
-    photographerHeader.appendChild(photographerPageDOM)
+    const photographerAvatar = photographerDetails.getPhotographerPageAvatarDOM();
+    photographerHeader.insertBefore(photographerPageDOM, contactButton );
+    photographerHeader.appendChild(photographerAvatar);
 }
 
 
