@@ -1,5 +1,5 @@
 function photographerPageFactory(data) {
-    console.log(data)
+    // console.log(data)
     const {name, portrait, city, country, price, tagline} = data;
     const picture = `assets/photographers/${portrait}`;
 
@@ -45,6 +45,29 @@ function photographerPageFactory(data) {
     return {name, picture, getPhotographerPageDOM, getPhotographerPageAvatarDOM}
 }
 
-function mediaPhotographer(data) {
-    const {titl, image, video, id} = data;
+function mediaPhotographerFactory(data) {
+    console.log(data)
+    // const {title, image, video, id} = data;
+    const {image, video, photographerId} = data;
+    // const photographerId = id;
+
+    const picture = `assets/media/${photographerId}/${image}`;
+    console.log(picture)
+    const vid = `assets/media/${photographerId}/${video}`;
+    
+    function getMediaCardDOM() {
+        const article = document.createElement("article");
+
+        if (image) {
+            const img = document.createElement("img");
+            img.setAttribute("src", picture);
+            article.appendChild(img)
+        } else if (video) {
+            const videoEl = document.createElement("video");
+            videoEl.setAttribute("src", vid)
+            article.appendChild(videoEl)
+        }
+        return article;
+    }
+    return { image, video, getMediaCardDOM}
 }

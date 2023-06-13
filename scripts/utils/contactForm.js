@@ -29,22 +29,14 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
-function afficherErreurs() {
-    const prenomInput = document.getElementById('prenom');
-    // const nomInput = document.getElementById('nom');
-    // const emailInput = document.getElementById('email');
-    const prenomError = document.getElementById('prenom-error');
-    // const nomError = document.getElementById('nom-error');
-    // const emailError = document.getElementById('email-error');
 
-    prenomInput.addEventListener('input', function() {
-        if (prenomInput === "") {
-            prenomError.style.display = 'block';
-        } else {
-            prenomError.style.display = 'none';
-        }
+form.addEventListener("submit", (e) => {
+    input.forEach((input) => {
+        console.log(input.value);
     });
-}
-afficherErreurs()
+    e.preventDefault();
+    form.reset();
+    closeModal();
+});
 
 
