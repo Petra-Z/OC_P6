@@ -92,7 +92,7 @@ const medias = getMedias(photographerById).then(result => {
 async function displayPhotographer(photographer) {
     const photographerHeader = document.querySelector(".photograph-header");
     // console.log(photographer)
-    const contactButton = document.querySelector(".contact_button");
+    const contactButton = document.querySelector(".contact-button");
     const photographerDetails = photographerPageFactory(photographer);
     const photographerPageDOM = photographerDetails.getPhotographerPageDOM();
     const photographerAvatar = photographerDetails.getPhotographerPageAvatarDOM();

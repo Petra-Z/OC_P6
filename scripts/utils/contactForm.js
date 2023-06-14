@@ -1,9 +1,8 @@
 
-const modal = document.getElementById("contact_modal");
+const modal = document.getElementById("contact-modal");
 
-// launch modal
+// lancer la modale de contact
 function displayModal() {
-    // const modal = document.getElementById("contact_modal");
 	modal.style.display = "block";
         if(modal.hasAttribute("aria-hidden")&& main.hasAttribute("aria-hidden")){
             modal.setAttribute("aria-hidden", "false");
@@ -13,30 +12,38 @@ function displayModal() {
         prenom.focus()
 }
 
-//closing modal 
+//fermer la modale de contact avec x
 function closeModal() {
-    // const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
         if(modal.hasAttribute("aria-hidden") && main.hasAttribute("aria-hidden"))
             modal.setAttribute("aria-hidden", "true");
             modal.setAttribute("aria-hidden","false");
 }
 
-// closing modal with esc 
+// fermer la modale de contact avec la touche ESC
 window.addEventListener("keyup", (e) => {
     if(modal.getAttribute("aria-hidden") === "false" && e.key === "Escape") {
         closeModal()
     }
 });
 
+// fermer la modale de contact quand on clique en dehore
+window.onclick = function (event) {
+    if (event.target === document.getElementById("contact-modal")) {
+        closeModal();
+    }
+};
 
-form.addEventListener("submit", (e) => {
-    input.forEach((input) => {
-        console.log(input.value);
-    });
+
+// validation formulaire de contact
+modal.addEventListener('submit', (e) => {
+
     e.preventDefault();
-    form.reset();
+        
+    console.log(`Prénom: ${e.target.prenom.value}`)
+    console.log(`Nom: ${e.target.nom.value}`)
+    console.log(`Email: ${e.target.email.value}`)
+    console.log(`Message: ${e.target.message.value}`)
+    
     closeModal();
-});
-
-
+})
