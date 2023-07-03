@@ -6,29 +6,51 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Fisheye - photographe </title>
 </head>
 
 <body>
+
   <header>
     <a href="index.html" aria-label="lien vers la page d'accueil"><img src="assets/images/logo.png" class="logo"
         alt="logo Fisheye" /></a>
   </header>
+
   <main id="main" aria-hidden="false">
     <div class="photograph-header">
       <button class="contact-button" onclick="displayModal()">Contactez-moi</button>
     </div>
 
     <!-- le filtre -->
-    <div class="photograph_sort">
-      <label for="sort_by" id="tri">Trier par :</label>
-      <select name="tri" id="sort_by">
-        <option value="Popularité">Popularité</option>
-        <option value="Date">Date</option>
-        <option value="Titre">Titre</option>
+    <div class="photograph-sort">
+      <label for="sort-by" id="tri">Trier par :</label>
+      <select name="tri" id="sort-by">
+        <option value="Popularité" class ="filterPopular" onclick="sortMediaByLikes()">Popularité</option>
+        <option value="Date" class ="filterDate" onclick="sortMediaByDate()">Date</option>
+        <option value="Titre" class ="filterTitle" onclick="sortMediaByTitle()">Titre</option>
       </select>
     </div>
+
+    <!-- le portfolio des photographes -->
     <div class="gallery"></div>
+
+    <!-- lightbox -->
+    <div id="lightbox-container">
+      <div class="lightbox">
+        <header>
+          <img src="assets/icons/closeMedia.svg" alt="closeLightbox" onclick="closeModal()">
+        </header>
+        <div class="lightbox-prev"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="lightbox-next"><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+    </div>
+
+    <div class="likeTarif">
+      <p class="totalLike"></p>
+      <img src="assets/icons/heartBlack.svg" alt="heart" class="heartTotal">
+      <p class="price"></p>
+    </div>
   </main>
 
   <!-- modale de contact -->
@@ -70,6 +92,8 @@
   <script src="scripts/factories/photographerPageFactory.js"></script>
   <script src="scripts/pages/photographer.js"></script>
   <script src="scripts/utils/contactForm.js"></script>
+  <script src="scripts/utils/filters.js"></script>
+
 </body>
 
 </html>

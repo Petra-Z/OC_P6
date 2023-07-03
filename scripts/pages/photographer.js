@@ -39,30 +39,6 @@ const photographer = getPhotographerById(photographerById).then(result => {
     // displayMedias(photographerById)
 }).catch(error => console.log(error))
 
-
-// async function getMedias(photographerId) {
-//     try {
-//         const response = await fetch("/data/photographers.json");
-//         const data = await response.json();
-//         console.log(data)
-//         const mediaPhotographer = [];
-//         medias = data['media'];
-//         console.log(medias)
-
-//         medias.forEach(function(media){
-//             console.log(media)
-//             if(media.photographerId == photographerById) {
-//                 mediaPhotographer.push(media);
-//             }
-//             console.log(mediaPhotographer)
-//         })
-//         // console.log(mediaPhotographer);
-//             return mediaPhotographer
-//         } catch (err) {
-//             console.log(err)
-//     }
-// }
-
 async function getMedias(photographerId) {
     const response = await fetch("/data/photographers.json");
     const data = await response.json();
@@ -100,6 +76,7 @@ async function displayPhotographer(photographer) {
     photographerHeader.appendChild(photographerAvatar);
 }
 
+
 async function displayMedias(medias) {
     // console.log(medias)
     const gallerySection = document.querySelector(".gallery")
@@ -110,4 +87,6 @@ async function displayMedias(medias) {
         gallerySection.appendChild(mediaCardDOM)
     })
 };
+
+
 
