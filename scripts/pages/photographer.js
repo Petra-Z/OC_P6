@@ -86,6 +86,8 @@ async function displayMedias(medias) {
         const mediaCardDOM = mediaElement.getMediaCardDOM();
         gallerySection.appendChild(mediaCardDOM)
     })
+    lightboxAddEventListener();
+    modalLightboxEvents();
 };
 
 

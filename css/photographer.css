@@ -128,18 +128,17 @@ main {
 
 /********** lightbox **********/
 
-#lightbox-container {
+#lightbox-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: 9999;
 }
 
-.lightbox {
-    border-radius: 5px;
+.lightbox-gallery {
     background-color: white;
     width: 100%;
     height: 100%;
@@ -148,61 +147,62 @@ main {
     align-items: center;
     justify-content: space-between;
     margin: auto;
+    border-radius: 5px;
 }
 
-.lightbox header {
+.lightbox-gallery header {
     justify-content: space-between;
     width: 100%;
+    display: flex;
+    justify-content: right;
 }
 
-.lightbox header img {
+.lightbox-gallery header img {
     cursor: pointer;
-    height: 42px;
-    width: 42px;
-    padding-left: 94%;
-    padding-top: 7%;
+    height: 30px;
+    width: 30px;
+    padding: 5%;
+    padding-top: 12%;
 }
 
-.lightbox img,
-.lightbox video {
+.lightbox-item img,
+.lightbox-item video {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
     width: 80%;
     height: 80%;
     object-fit: cover;
     cursor: pointer;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
 }
 
-.lightbox p {
-    color: #901C1C;
-    font-weight: 600;
-    font-size: 25px;
+.lightbox-item p {
+    position: absolute;
     transform: translate(-50%, -50%);
-    position: absolute;
-    width: 75%;
-    height: 20%;
-    position: absolute;
+    width: 76%;
+    height: 25%;
     left: 48%;
-    line-height: 4%;
+    color: #901C1C;
+    font-weight: 400;
+    font-size: 1.5em;
 }
 
 .lightbox-prev, .lightbox-next {
     position: absolute; 
-    top: 50%;
-    font-size: 50px;
+    top: 45%;
+    font-size: 2.5em;
     color: #901C1C;
     cursor: pointer;
     z-index: 1;
 }
 
 .lightbox-prev {
-    left: 60px
+    left: 1.5em;
 }
 
 .lightbox-next {
-    right: 60px
+    right: 1.5em;
 }
 
 .likeTarif {

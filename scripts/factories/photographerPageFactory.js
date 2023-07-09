@@ -43,7 +43,9 @@ let totalLikes = 0;
 
 function mediaPhotographerFactory(data) {
     // console.log(data)
-    const {title, image, video, photographerId, likes} = data;
+    const {title, image, video, photographerId, likes, id} = data;
+
+    // console.log(data)
 
     const picture = `assets/media/${photographerId}/${image}`;
     // console.log(picture)
@@ -70,7 +72,7 @@ function mediaPhotographerFactory(data) {
             img.setAttribute("src", picture);
             img.setAttribute("alt", title);
             img.setAttribute("data-id", photographerId)
-            article.appendChild(img)
+            link.appendChild(img)
             link.setAttribute("href", "#")
         } else if (video) {
             const videoEl = document.createElement("video");
@@ -79,14 +81,14 @@ function mediaPhotographerFactory(data) {
             videoEl.setAttribute("data-id", photographerId)
             videoEl.setAttribute("controls", true)
             videoEl.setAttribute("type", "video/mp4")
-            article.appendChild(videoEl);
+            link.appendChild(videoEl);
             link.setAttribute("href", "#");
 
         }
 
         link.setAttribute("title", title);
         link.setAttribute("aria-label", title);
-        link.setAttribute("class", "mediaDisplayLink");
+        link.setAttribute("class", "itemLightboxLink");
 
         const h3 = document.createElement("h3");
         const h4 = document.createElement("h4");
@@ -128,5 +130,6 @@ function mediaPhotographerFactory(data) {
         })
         return article;
     }
-    return { title, image, video, photographerId, likes, totalLikes, getMediaCardDOM}
+    return { title, image, video, photographerId, likes, totalLikes, id, getMediaCardDOM}
 }
+
