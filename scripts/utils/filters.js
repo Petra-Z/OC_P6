@@ -1,3 +1,4 @@
+// Fonction pour pour trier les medias de photographes
 function sortMedia(medias, triValue) {
     // console.log( medias);
     // console.log(triValue);
@@ -23,9 +24,6 @@ function selectData(medias) {
     const select = document.getElementById("select");
     select.addEventListener('change', (e) => {
         const sortedMedia = sortMedia(medias, e.target.value);
-        // console.log(medias);
-        // console.log(e.target.value);
-        // console.log(sortedMedia)
         // eslint-disable-next-line no-undef
         displayMedias(sortedMedia);
         // eslint-disable-next-line no-undef

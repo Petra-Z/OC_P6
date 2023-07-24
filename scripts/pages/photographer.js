@@ -37,7 +37,8 @@ async function getPhotographer() {
 
 // Récupérer les médias du photographe
 async function getMedias() {
-  // Recuperation du fichier JSON en utilisant "fetch".
+
+  // Récupérer du fichier JSON en utilisant "fetch".
   return fetch("../data/photographers.json")
     .then(function (res) {
       return res.json();
@@ -45,6 +46,7 @@ async function getMedias() {
     .then(function (json) {
       const mediaPhotographer = [];
       medias = json["media"];
+
       // filtrer les médias en fonction de l'id du photographe
       medias.forEach(function (media) {
         if (media.photographerId == photographerById) {

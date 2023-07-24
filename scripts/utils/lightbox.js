@@ -1,27 +1,19 @@
 /* eslint-disable no-undef */
+
 // on ajoute des écouteurs d'(e)s de clic aux liens media pour ouvrir la lightbox
 // eslint-disable-next-line no-unused-vars
 function lightboxAddEventListener() {
     let allItemsLightboxLink = document.querySelectorAll(".itemLightboxLink");
     // console.log(allItemsLightboxLink)
 
-    // on boucle sur chanque élément média
+    // on boucle sur chaque élément média
     allItemsLightboxLink.forEach((itemLigthboxLink) => {
         itemLigthboxLink.addEventListener("click", (e) => {
             e.preventDefault();
-
-            // const type = e.target.tagName === "IMG" ? "picture" : "video";
-            // const title = type === "picture" ? e.target.getAttribute("alt") : null
+            const type = e.target.tagName === "IMG" ? "picture" : "video";
+            const title = type === "picture" ? e.target.getAttribute("alt") : null
             
-            let type = "video";
-            let title = e.target.getAttribute("aria-label");
-
-            if (e.target.tagName === "IMG") {
-                type = "picture";
-                title = e.target.getAttribute("alt")
-            }
-
-            openLightbox(title, {
+             openLightbox(title, {
                 type,
                 src: e.target.getAttribute("src"),
                 id: e.target.dataset.id,
@@ -57,7 +49,6 @@ function openLightbox(title, media) {
     if (media.type === "picture") {
         const imgModal = document.createElement("img");
         imgModal.setAttribute("src", media.src);
-        // imgModal.setAttribute("class", "imgLightbox");
         imgModal.setAttribute("alt", title);
         div.appendChild(imgModal)
     } else if (media.type === "video") {
@@ -69,7 +60,6 @@ function openLightbox(title, media) {
     }
 
     // construction de la lightbox
-    // p.setAttribute("class", "title");
     modal.appendChild(div);
     div.appendChild(p);
 }

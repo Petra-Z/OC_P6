@@ -1,15 +1,13 @@
-// import { photographerFactory } from 'scripts/factories/photographerFactory.js';
-
+// Récuperer les data des photographes du fichier JSON en utilisant "fetch"
 async function getPhotographers() {
-  // Recuperation les data du fichier JSON en utilisant "fetch".
   return (
-    fetch("/data/photographers.json")
+    fetch("../data/photographers.json")
       .then((response) => response.json())
-      //  .then(data => console.log(data))
       .catch((error) => console.log(error))
   );
 }
 
+// Afficher les photographes
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer-section");
 
@@ -22,7 +20,6 @@ async function displayData(photographers) {
 }
 
 async function init() {
-  // Récupère les datas des photographes
   const { photographers } = await getPhotographers();
   displayData(photographers);
 }
