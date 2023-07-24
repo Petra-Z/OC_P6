@@ -1,8 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 function photographerFactory(data) {
     // console.log(data)
     const { name, portrait, city, country, tagline, price, id } = data;
-
-    console.log(id)
 
     const picture = `assets/photographers/${portrait}`;
 
@@ -19,7 +18,6 @@ function photographerFactory(data) {
 
         //attribution des valeurs
         link.setAttribute('href', `photographer.html?id=${id}`);
-        // link.href = '/photographer.html?id='+id;
         img.setAttribute(`src`, picture);
         img.setAttribute(`alt`, `Photo de ${name}`);
         h2.textContent = name;
@@ -29,15 +27,14 @@ function photographerFactory(data) {
 
         //construction du profil photographe
         article.appendChild(link);
-        // link.appendChild(article);
         link.appendChild(img);
         link.appendChild(h2);
         link.appendChild(h3);
         link.appendChild(h4);
         link.appendChild(p);
-        // link.appendChild(img);
 
         return (article);
     }
-    return { name, picture, getUserCardDOM }
+
+      return {name, portrait, city, country, tagline, price, id, getUserCardDOM }
 }

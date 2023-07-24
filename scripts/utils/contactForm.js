@@ -1,11 +1,13 @@
-
 const modal = document.getElementById("contact-modal");
 
 // lancer la modale de contact
+// eslint-disable-next-line no-unused-vars
 function displayModal() {
 	modal.style.display = "block";
+    // eslint-disable-next-line no-undef
         if(modal.hasAttribute("aria-hidden")&& main.hasAttribute("aria-hidden")){
             modal.setAttribute("aria-hidden", "false");
+            // eslint-disable-next-line no-undef
             main.setAttribute("aria-hidden", "true")
         }
         const prenom = document.getElementById("prenom");
@@ -15,6 +17,7 @@ function displayModal() {
 //fermer la modale de contact avec x
 function closeModal() {
     modal.style.display = "none";
+    // eslint-disable-next-line no-undef
         if(modal.hasAttribute("aria-hidden") && main.hasAttribute("aria-hidden"))
             modal.setAttribute("aria-hidden", "true");
             modal.setAttribute("aria-hidden","false");
@@ -33,7 +36,6 @@ window.onclick = function (event) {
         closeModal();
     }
 };
-
 
 // validation formulaire de contact
 modal.addEventListener('submit', (e) => {

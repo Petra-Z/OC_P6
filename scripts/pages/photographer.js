@@ -1,94 +1,110 @@
-//Mettre le code JavaScript lié à la page photographer.html*
+/* eslint-disable no-undef */
 
-// création lien entre l'ID des photographes et l'URL
-const getParam = () => {
-    let search = window.location.search
-    let result = new URLSearchParams(search).get('id')
-    if (result != null) {
-        return result
-    }
-    return false
-}
+// Extraire les paramètres d'URL de la page
+let params = new URL(document.location).searchParams;
 
-const getData = async (url) => {
-    const data = await fetch(`${url}`)
-        .then((res) => res.json())
-        .then((data) => data)
-    return data;
-}
+// Récuperer la valeur du paramètre "id" pour identifier le photographe
+let photographerById = params.get("id");
+// console.log(photographerById)
 
-let photographerById = getParam();
+let medias;
+let photographer;
 
-console.log(photographerById)
-
-
-const getPhotographerById = async (id) => {
-    const response = await fetch("/data/photographers.json");
-    const data = await response.json();
-    const photographersList = data.photographers
-    //on boucle sur la liste des photographes et on retrouve le photographe par son id
-    // console.log(data.photographers);
-    let p = {};
-    p = photographersList.filter(element => element.id == id )
-    // console.log(p)
-    return p[0];
-}
-const photographer = getPhotographerById(photographerById).then(result => {
-    console.log(result)
-    displayPhotographer(result)
-    // displayMedias(photographerById)
-}).catch(error => console.log(error))
-
-async function getMedias(photographerId) {
-    const response = await fetch("/data/photographers.json");
-    const data = await response.json();
-    console.log(data);
-    
-    const mediaPhotographer = [];
-    const medias = data['media'];
-    console.log(medias);
-  
-    medias.forEach(function(media) {
-    //   console.log(media);
-      if (media.photographerId == photographerId) {
-        mediaPhotographer.push(media);
-      }
-    //   console.log(mediaPhotographer);
-    });
-  
-    return mediaPhotographer;
-  }
-
-const medias = getMedias(photographerById).then(result => {
-    console.log(result)
-    displayMedias(result)
-}).catch(error => console.log(error))
-
-
-async function displayPhotographer(photographer) {
-    const photographerHeader = document.querySelector(".photograph-header");
-    // console.log(photographer)
-    const contactButton = document.querySelector(".contact-button");
-    const photographerDetails = photographerPageFactory(photographer);
-    const photographerPageDOM = photographerDetails.getPhotographerPageDOM();
-    const photographerAvatar = photographerDetails.getPhotographerPageAvatarDOM();
-    photographerHeader.insertBefore(photographerPageDOM, contactButton );
-    photographerHeader.appendChild(photographerAvatar);
-}
-
-
-async function displayMedias(medias) {
-    // console.log(medias)
-    const gallerySection = document.querySelector(".gallery")
-    medias.forEach((media) => {
-        console.log(media)
-        const mediaElement = mediaPhotographerFactory(media);
-        const mediaCardDOM = mediaElement.getMediaCardDOM();
-        gallerySection.appendChild(mediaCardDOM)
+// Récupérer le photographe correspondant à l'id récupéré précédement
+async function getPhotographer() {
+  // Recuperation du fichier JSON en utilisant "fetch"
+  return fetch("../data/photographers.json")
+    .then(function (res) {
+      return res.json();
     })
-    lightboxAddEventListener();
-    modalLightboxEvents();
-};
+    .then(function (json) {
+      return json["photographers"];
+    })
+    .then(function (photographers) {
+      let result = null;
+      photographers.forEach((element) => {
+        if (element.id == photographerById) {
+          result = element;
+        }
+      });
 
+      return result;
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+}
 
+// Récupérer les médias du photographe
+async function getMedias() {
+  // Recuperation du fichier JSON en utilisant "fetch".
+  return fetch("../data/photographers.json")
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (json) {
+      const mediaPhotographer = [];
+      medias = json["media"];
+      // filtrer les médias en fonction de l'id du photographe
+      medias.forEach(function (media) {
+        if (media.photographerId == photographerById) {
+          mediaPhotographer.push(media);
+        }
+      });
+      return mediaPhotographer;
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+}
 
+// Récupérer les détails du photographe et son avatar à partir de l'objet crée dans la factory
+async function displayPhotographer(photographer) {
+  const photographerHeader = document.querySelector(".photograph-header");
+  // console.log(photographer)
+  const contactButton = document.querySelector(".contact-button");
+  const photographerDetails = photographerPageFactory(photographer); 
+  const photographerPageDOM = photographerDetails.getPhotographerPageDOM();  
+  const photographerAvatar = photographerDetails.getPhotographerPageAvatarDOM();
+  photographerHeader.insertBefore(photographerPageDOM, contactButton);
+  photographerHeader.appendChild(photographerAvatar);
+}
+
+// Récupérer les medias et créer la gallery du photographe
+async function displayMedias(medias) {
+  // console.log(medias)
+  const gallerySection = document.querySelector(".gallery");
+  gallerySection.innerHTML = "";
+  medias.forEach((media) => {
+    console.log(media);
+    const mediaElement = mediaPhotographerFactory(media);     
+    const mediaCardDOM = mediaElement.getMediaCardDOM();
+    gallerySection.appendChild(mediaCardDOM);
+  });
+}
+
+// La fonction d'initialisation
+async function init() {
+  // Pour récupérer les données
+  medias = await getMedias();
+  photographer = await getPhotographer();
+
+  // Afficher dans le footer de la page le prix par jour du photographe
+  const pricePerDay = document.querySelector(".pricePerDay");
+  pricePerDay.setAttribute(
+    "aria-label",
+    `Prix par jour: ${photographer.price}`
+  );
+  pricePerDay.innerHTML = `${photographer.price}€/jour`;
+
+  // Pour afficher les informations
+  displayPhotographer(photographer);
+  displayMedias(medias);
+  selectData(medias);   // le filtre
+  lightboxAddEventListener(); // lightbox
+  modalLightboxEvents(); 
+}
+
+init();
+
+/* eslint-enable no-undef */

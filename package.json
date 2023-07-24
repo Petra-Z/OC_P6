@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ."
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0"
+  },
+  "rules": {
+    "eqeqeq": "warn",
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "multiline-ternary": ["warn", "always-multiline"]
+  }
+}
+

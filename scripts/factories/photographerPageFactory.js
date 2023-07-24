@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 function photographerPageFactory(data) {
-    // console.log(data)
+    console.log(data)
     const {name, portrait, city, country, tagline} = data;
     const picture = `assets/photographers/${portrait}`;
 
@@ -28,6 +29,7 @@ function photographerPageFactory(data) {
 
     }
 
+    // création de l'avatar du photographe
     function getPhotographerPageAvatarDOM() {
         const img = document.createElement("img");
         img.setAttribute("src", picture);
@@ -41,11 +43,12 @@ function photographerPageFactory(data) {
 
 let totalLikes = 0;
 
+// eslint-disable-next-line no-unused-vars
 function mediaPhotographerFactory(data) {
     // console.log(data)
-    const {title, image, video, photographerId, likes, id} = data;
+    const {title, image, video, photographerId, likes, price, id} = data;
 
-    // console.log(data)
+    console.log(data)
 
     const picture = `assets/media/${photographerId}/${image}`;
     // console.log(picture)
@@ -71,14 +74,14 @@ function mediaPhotographerFactory(data) {
             const img = document.createElement("img");
             img.setAttribute("src", picture);
             img.setAttribute("alt", title);
-            img.setAttribute("data-id", photographerId)
+            img.setAttribute("data-id", id)
             link.appendChild(img)
             link.setAttribute("href", "#")
         } else if (video) {
             const videoEl = document.createElement("video");
             videoEl.setAttribute("src", vid)
             videoEl.setAttribute("aria-label", title);
-            videoEl.setAttribute("data-id", photographerId)
+            videoEl.setAttribute("data-id", id)
             videoEl.setAttribute("controls", true)
             videoEl.setAttribute("type", "video/mp4")
             link.appendChild(videoEl);
@@ -107,7 +110,7 @@ function mediaPhotographerFactory(data) {
         like.appendChild(heart);
 
         totalLikes += likes;
-        const footer = document.querySelector(".totalLike");
+        const footer = document.querySelector(".totalLikes");
         footer.innerHTML = `${totalLikes}`;
 
         heart.addEventListener("click", () => {
@@ -126,10 +129,11 @@ function mediaPhotographerFactory(data) {
                 console.log("finalLikesMinus")
             }
             h4.setAttribute("aria-label", `aimé ${h4.textContent} fois`);
-            footer.innerHTML = `${totalLikes}`
+            footer.innerHTML = `${totalLikes}`;
+          
         })
         return article;
     }
-    return { title, image, video, photographerId, likes, totalLikes, id, getMediaCardDOM}
+    return { title, image, video, photographerId, likes, totalLikes, id, price, getMediaCardDOM}
 }
 
