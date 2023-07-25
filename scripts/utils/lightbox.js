@@ -96,8 +96,8 @@ function modalLightboxEvents() {
             lightbox.dataset.title = nextImage.title;
             console.log("nextImage", nextImage)
             const nextImgSrc = nextImage.image
-                ? `/assets/media/` + photographerById + "/" + nextImage.image
-                : `/assets/media/` + photographerById + "/" + nextImage.video
+                ? `assets/media/` + photographerById + "/" + nextImage.image
+                : `assets/media/` + photographerById + "/" + nextImage.video
             const isVideo = nextImgSrc.endsWith(".mp4");
             const title = nextImage.title;
             const p = document.createElement("p");
@@ -140,8 +140,8 @@ function modalLightboxEvents() {
             lightbox.dataset.title = prevImage.title;
             console.log("prevImage", prevImage);
             const prevImgSrc = prevImage.image
-                ? `/assets/media/` + photographerById + "/" + prevImage.image
-                : `/assets/media/` + photographerById + "/" + prevImage.video
+                ? `assets/media/` + photographerById + "/" + prevImage.image
+                : `assets/media/` + photographerById + "/" + prevImage.video
             const isVideo = prevImgSrc.endsWith(".mp4");
             let title = prevImage.title;
             const p = document.createElement("p");

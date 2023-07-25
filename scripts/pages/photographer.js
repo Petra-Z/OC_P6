@@ -12,40 +12,22 @@ let photographer;
 
 // Récupérer le photographe correspondant à l'id récupéré précédement
 async function getPhotographer() {
-  // Recuperation du fichier JSON en utilisant "fetch"
-  return fetch("../data/photographers.json")
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (json) {
-      return json["photographers"];
-    })
-    .then(function (photographers) {
+  // Recuperation du fichier JSON
       let result = null;
-      photographers.forEach((element) => {
+      photographersAndMedias.photographers.forEach((element) => {
         if (element.id == photographerById) {
           result = element;
         }
       });
-
       return result;
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
 }
 
 // Récupérer les médias du photographe
 async function getMedias() {
 
-  // Récupérer du fichier JSON en utilisant "fetch".
-  return fetch("../data/photographers.json")
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (json) {
+  // Récupérer du fichier JSON
       const mediaPhotographer = [];
-      medias = json["media"];
+      medias = photographersAndMedias.media;
 
       // filtrer les médias en fonction de l'id du photographe
       medias.forEach(function (media) {
@@ -54,10 +36,6 @@ async function getMedias() {
         }
       });
       return mediaPhotographer;
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
 }
 
 // Récupérer les détails du photographe et son avatar à partir de l'objet crée dans la factory
