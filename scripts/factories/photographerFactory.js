@@ -6,7 +6,7 @@ function photographerFactory(data) {
   const picture = `assets/photographers/${portrait}`;
 
   function getUserCardDOM() {
-    //declaration des élémente du DOM
+    //declaration des éléments du DOM
     const article = document.createElement("article");
     const link = document.createElement("a");
     const img = document.createElement("img");

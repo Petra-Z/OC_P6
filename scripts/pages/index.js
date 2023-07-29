@@ -1,8 +1,13 @@
-// Récuperer les data des photographes
-
+// Récuperer les datas des photographes
 async function getPhotographers() {
   const photographers = photographersAndMedias.photographers;
   return photographers;
+
+  //   // Recuperation les data du fichier JSON en utilisant "fetch".
+  //   return fetch('/data/photographers.json')
+  //   .then(response => response.json())
+  //  //  .then(data => console.log(data))
+  //   .catch(error => console.log(error));
 }
 
 // Afficher les photographes

@@ -29,10 +29,19 @@ function photographerPageFactory(data) {
   function getPhotographerPageAvatarDOM() {
     const img = document.createElement("img");
     img.setAttribute("src", picture);
+    img.setAttribute("alt", `portrait of ${name}`)
     img.classList.add("photograph_avatar");
 
     return img;
   }
+
+  // afficher dans le footer de la page le prix par jour du photographe
+  const pricePerDay = document.querySelector(".pricePerDay");
+  pricePerDay.setAttribute(
+    "aria-label",
+    `Prix par jour: ${photographer.price}`
+  );
+  pricePerDay.innerHTML = `${photographer.price}€/jour`;
 
   return {
     name,
@@ -56,26 +65,43 @@ function mediaPhotographerFactory(data) {
   const vid = `assets/media/${photographerId}/${video}`;
 
   function getMediaCardDOM() {
+    // déclaration des éléments du DOM
     const article = document.createElement("article");
     const link = document.createElement("a");
     const text = document.createElement("div");
     const like = document.createElement("span");
     const heart = document.createElement("img");
+    const h3 = document.createElement("h3");
+    const h4 = document.createElement("h4");
 
-    text.setAttribute("class", "titleMedia");
-    like.setAttribute("class", "like");
-    heart.setAttribute("class", "heart");
+    // attribution des valeurs
+    article.setAttribute("tabindex", "0")
+
+    link.setAttribute("title", title);
+    link.setAttribute("aria-label", title);
+    link.setAttribute("class", "itemLightboxLink");
+    link.setAttribute("tabindex", "0")
+
     heart.setAttribute("src", "assets/icons/heart.svg");
     heart.setAttribute("alt", "heart");
-    heart.setAttribute("aria-describedby", "likes");
-    heart.setAttribute("aria-label", "je n'aime pas");
+    heart.setAttribute("aria-label", "like");
+    heart.setAttribute("role", "button");
     heart.setAttribute("aria-pressed", false);
+    heart.setAttribute("tabindex", "0")
 
+    h4.setAttribute("aria-label", `aimé ${likes} fois`);
+    h4.setAttribute("tabindex", "0")
+    h3.setAttribute("tabindex", "0")
+    h3.textContent = title;
+    h4.textContent = likes;
+
+    // création et configuration des articles pour les médias du photographe
     if (image) {
       const img = document.createElement("img");
       img.setAttribute("src", picture);
       img.setAttribute("alt", title);
       img.setAttribute("data-id", id);
+      img.setAttribute("tabindex", "0")
       link.appendChild(img);
       link.setAttribute("href", "#");
     } else if (video) {
@@ -85,21 +111,10 @@ function mediaPhotographerFactory(data) {
       videoEl.setAttribute("data-id", id);
       videoEl.setAttribute("controls", true);
       videoEl.setAttribute("type", "video/mp4");
+      videoEl.setAttribute("tabindex", "0")
       link.appendChild(videoEl);
       link.setAttribute("href", "#");
     }
-
-    link.setAttribute("title", title);
-    link.setAttribute("aria-label", title);
-    link.setAttribute("class", "itemLightboxLink");
-
-    const h3 = document.createElement("h3");
-    const h4 = document.createElement("h4");
-    h3.setAttribute("class", "mediaDisplayInfosTitle");
-    h4.setAttribute("class", "mediaDispayLike");
-    h4.setAttribute("aria-label", `aimé ${likes} fois`);
-    h3.textContent = title;
-    h4.textContent = likes;
 
     article.appendChild(link);
     article.appendChild(text);
@@ -109,29 +124,24 @@ function mediaPhotographerFactory(data) {
     like.appendChild(h4);
     like.appendChild(heart);
 
+    // fonction pour afficher et gestionner le nombre total de likes du photographe
+    // affichage du nombre initial des likes
     totalLikes += likes;
     const footer = document.querySelector(".totalLikes");
     footer.innerHTML = `${totalLikes}`;
 
+    // calcul du nombre total des likes si l'utilisateur like une media item
     heart.addEventListener("click", () => {
-      const pressed =
-        heart.getAttribute("aria-pressed") === "true" ? "false" : "true";
-      heart.setAttribute("aria-pressed", pressed);
-
-      if (pressed === "true") {
-        h4.textContent = parseInt(h4.textContent) + 1;
-        totalLikes += 1;
-        heart.setAttribute("aria-label", "j'aime");
-        console.log("finalLikesPlus", totalLikes);
-      } else {
-        h4.textContent = parseInt(h4.textContent) - 1;
-        totalLikes -= 1;
-        heart.setAttribute("aria-label", "je n'aime plus");
-        console.log("finalLikesMinus");
-      }
-      h4.setAttribute("aria-label", `aimé ${h4.textContent} fois`);
-      footer.innerHTML = `${totalLikes}`;
+      const isPressed = heart.getAttribute("aria-pressed") === "true";
+      const newLikes = isPressed ? totalLikes - 1 : totalLikes + 1;
+      totalLikes = newLikes;
+      heart.setAttribute("aria-pressed", !isPressed);
+      heart.setAttribute("aria-label", isPressed ? "je n'aime plus" : "j'aime");
+      h4.textContent = newLikes;
+      h4.setAttribute("aria-label", `aimé ${newLikes} fois`);
+      footer.innerHTML = `${newLikes}`;
     });
+
     return article;
   }
   return {

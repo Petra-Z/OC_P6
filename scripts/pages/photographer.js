@@ -2,6 +2,7 @@
 
 // Extraire les paramètres d'URL de la page
 let params = new URL(document.location).searchParams;
+console.log(params)
 
 // Récuperer la valeur du paramètre "id" pour identifier le photographe
 let photographerById = params.get("id");
@@ -13,6 +14,16 @@ let photographer;
 // Récupérer le photographe correspondant à l'id récupéré précédement
 async function getPhotographer() {
   // Recuperation du fichier JSON
+
+  // return fetch("../data/photographers.json")
+  // .then(function (res) {
+  //   return res.json();
+  // })
+  // .then(function (json) {
+  //   return json["photographers"];
+  // })
+  // .then(function (photographers) {
+
   let result = null;
   photographersAndMedias.photographers.forEach((element) => {
     if (element.id == photographerById) {
@@ -22,9 +33,17 @@ async function getPhotographer() {
   return result;
 }
 
+
 // Récupérer les médias du photographe
 async function getMedias() {
   // Récupérer du fichier JSON
+
+  // return fetch("../data/photographers.json")
+  // .then(function (res) {
+  //   return res.json();
+  // })
+  // .then(function (json) {
+
   const mediaPhotographer = [];
   medias = photographersAndMedias.media;
 
@@ -36,6 +55,9 @@ async function getMedias() {
   });
   return mediaPhotographer;
 }
+// .catch(function (err) {
+//   console.log(err);
+// });
 
 // Récupérer les détails du photographe et son avatar à partir de l'objet crée dans la factory
 async function displayPhotographer(photographer) {
@@ -67,14 +89,6 @@ async function init() {
   // Pour récupérer les données
   medias = await getMedias();
   photographer = await getPhotographer();
-
-  // Afficher dans le footer de la page le prix par jour du photographe
-  const pricePerDay = document.querySelector(".pricePerDay");
-  pricePerDay.setAttribute(
-    "aria-label",
-    `Prix par jour: ${photographer.price}`
-  );
-  pricePerDay.innerHTML = `${photographer.price}€/jour`;
 
   // Pour afficher les informations
   displayPhotographer(photographer);

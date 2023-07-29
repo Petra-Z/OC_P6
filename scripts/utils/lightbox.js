@@ -10,9 +10,12 @@ function lightboxAddEventListener() {
   allItemsLightboxLink.forEach((itemLigthboxLink) => {
     itemLigthboxLink.addEventListener("click", (e) => {
       e.preventDefault();
+
+      // on détermine le type de media cliqué en fonction de la balise HTML
       const type = e.target.tagName === "IMG" ? "picture" : "video";
       const title = type === "picture" ? e.target.getAttribute("alt") : null;
 
+      // avec les éléments récuperées on appelle la fonction qui affiche la lightbox
       openLightbox(title, {
         type,
         src: e.target.getAttribute("src"),
@@ -64,44 +67,57 @@ function openLightbox(title, media) {
   div.appendChild(p);
 }
 
+// ajouter des écouteurs d'événements aux éléments de la lightbox
 // eslint-disable-next-line no-unused-vars
 function modalLightboxEvents() {
+
+  // récupération des éléménts 
   const prevButton = document.querySelectorAll(".lightbox-prev");
   const nextButton = document.querySelectorAll(".lightbox-next");
   const gallery = document.querySelectorAll(".itemLightboxLink");
 
+  // rechercher l'index de l'élément media dans le tableau medias
   const findCurrentIndex = (itemId) => {
-    console.log("find Index itemId ", itemId, " in ", medias);
     return medias.findIndex((media) => media.id.toString() === itemId);
   };
 
-  // on boucle sur chaque nextArrow et on ajoute un écouteur d'événement
+  // // on boucle sur chaque nextArrow et on ajoute un écouteur d'événement
   nextButton.forEach((nextArrow) => {
     nextArrow.addEventListener("click", (e) => {
       e.preventDefault();
       let lightbox = document.querySelector(".lightbox-item");
       let currentIndex = findCurrentIndex(lightbox.dataset.id);
-      console.log(currentIndex);
+      // console.log(currentIndex);
+
+      // vérifier si la lightbox est valide et la vide du contenu
       if (lightbox) {
         lightbox.innerHTML = "";
       }
-      currentIndex++;
+      currentIndex++;  // afficher l'élément suivant
+
+      // si l'index dépasse la longueur du medias cela affiche le premier élément
       if (currentIndex >= medias.length) {
         currentIndex = 0;
       }
 
       const nextImage = medias[currentIndex];
+      // mise à jour des attributs dataset de la lightbox
       lightbox.dataset.id = nextImage.id;
       lightbox.dataset.title = nextImage.title;
-      console.log("nextImage", nextImage);
+     
+      // vérifier si l'élément media est une image ou une vidéo
       const nextImgSrc = nextImage.image
         ? `assets/media/` + photographerById + "/" + nextImage.image
         : `assets/media/` + photographerById + "/" + nextImage.video;
       const isVideo = nextImgSrc.endsWith(".mp4");
+
+      // afficher le titre de l'élément média
       const title = nextImage.title;
       const p = document.createElement("p");
       p.textContent = title;
       p.setAttribute("class", "title");
+
+      // afficher l'élément média dans la lightbox
       if (isVideo) {
         const video = document.createElement("video");
         video.src = nextImgSrc;
@@ -126,26 +142,35 @@ function modalLightboxEvents() {
       let lightbox = document.querySelector(".lightbox-item");
       let currentIndex = findCurrentIndex(lightbox.dataset.id);
 
+      // vérifier si la lightbox est valide et la vide du contenu
       if (lightbox) {
         lightbox.innerHTML = "";
       }
-      currentIndex--;
+      currentIndex--;    // afficher l'élément précédent
+
+      // afficher le dernier élément si l'index est inférieur à 0
       if (currentIndex < 0) {
         currentIndex = gallery.length - 1;
       }
+
       const prevImage = medias[currentIndex];
+      // mise à jour des attributs dataset de la lightbox
       lightbox.dataset.id = prevImage.id;
       lightbox.dataset.title = prevImage.title;
-      console.log("prevImage", prevImage);
+
+      // vérifier si l'élément media est une image ou une vidéo
       const prevImgSrc = prevImage.image
         ? `assets/media/` + photographerById + "/" + prevImage.image
         : `assets/media/` + photographerById + "/" + prevImage.video;
       const isVideo = prevImgSrc.endsWith(".mp4");
+
+       // afficher le titre de l'élément média
       let title = prevImage.title;
       const p = document.createElement("p");
       p.textContent = title;
       p.setAttribute("class", "title");
 
+      // afficher l'élément média dans la lightbox
       if (isVideo) {
         const video = document.createElement("video");
         video.src = prevImgSrc;
@@ -166,21 +191,14 @@ function modalLightboxEvents() {
 
   // naviguer la video avec les touches du clavier
   window.addEventListener("keydown", (e) => {
-    const lightbox = document.querySelector(".lightbox-item");
-    const videoElement = lightbox.querySelector("video");
-    if (e.defaultPrevented) {
-      return;
-    }
-    switch (e.key) {
-      case " ":
-        if (videoElement.paused) {
-          videoElement.play();
-        } else {
-          videoElement.pause();
-        }
-        break;
-      default:
-        break;
+    if(e.key === ' ') {
+      const videoElement = document.querySelector("video");
+      e.preventDefault();
+      if (videoElement.paused) {
+        videoElement.play();
+      } else {
+        videoElement.pause();
+      }
     }
   });
 

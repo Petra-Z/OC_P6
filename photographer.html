@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <meta charset="utf-8" >
+    <link href="css/style.css" rel="stylesheet" type="text/css" >
+    <link rel="icon" type="image/png" href="assets/favicon.png" >
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
       rel="stylesheet"
-    />
+    >
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-    />
+    >
     <title>Fisheye - photographe</title>
   </head>
 
@@ -22,15 +22,16 @@
     <header>
       <a href="index.html" aria-label="Lien vers la page d'accueil">
         <img src="assets/images/logo.png" class="logo" alt="logo Fisheye"
-      /></a>
+      ></a>
     </header>
 
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
         <button
           class="contact-button"
           aria-label="Contactez-moi"
           onclick="displayModal()"
+          type = "button"
         >
           Contactez-moi
         </button>
@@ -70,7 +71,7 @@
               aria-label="Fermer la modale média"
               alt="Bouton fermeture modale média"
               onclick="closeLightbox()"
-            />
+            >
           </header>
           <div class="lightbox-prev" tabindex="0" role="button">&lt;</div>
           <div class="lightbox-next" tabindex="0" role="button">&#62;</div>
@@ -84,7 +85,7 @@
           src="assets/icons/heartBlack.svg"
           alt="heart for like"
           class="totalHearts"
-        />
+        >
         <p class="pricePerDay"></p>
       </div>
     </main>
@@ -105,10 +106,11 @@
             aria-label="Fermer formulaire de contact"
             onclick="closeModal()"
             alt="close button"
-          />
+            tabindex="0"
+          >
         </header>
 
-        <form id="form">
+        <form id="form" action="#" method="POST">
           <!-- input prenom -->
           <label for="prenom">Prénom</label>
           <input
@@ -117,7 +119,7 @@
             id="prenom"
             placeholder="Entrez votre prénom"
             required
-          />
+          >
 
           <!-- input nom -->
           <label for="nom">Nom</label>
@@ -127,7 +129,7 @@
             id="nom"
             placeholder="Entrez votre nom"
             required
-          />
+          >
 
           <!-- input email -->
           <label for="email">Email</label>
@@ -137,7 +139,7 @@
             id="email"
             placeholder="Entrez votre e-mail"
             required
-          />
+          >
 
           <!-- input message -->
           <label for="message">Votre message</label>
