@@ -77,7 +77,7 @@ async function displayMedias(medias) {
   const gallerySection = document.querySelector(".gallery");
   gallerySection.innerHTML = "";
   medias.forEach((media) => {
-    console.log(media);
+    // console.log(media);
     const mediaElement = mediaPhotographerFactory(media);
     const mediaCardDOM = mediaElement.getMediaCardDOM();
     gallerySection.appendChild(mediaCardDOM);

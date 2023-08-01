@@ -55,14 +55,17 @@ let totalLikes = 0;
 
 // eslint-disable-next-line no-unused-vars
 function mediaPhotographerFactory(data) {
-  // console.log(data)
+  console.log(data)
   const { title, image, video, photographerId, likes, price, id } = data;
 
   console.log(data);
+  console.log(video);
+  console.log(image)
 
   const picture = `assets/media/${photographerId}/${image}`;
-  // console.log(picture)
+  console.log(picture)
   const vid = `assets/media/${photographerId}/${video}`;
+  console.log(vid)
 
   function getMediaCardDOM() {
     // déclaration des éléments du DOM
@@ -75,7 +78,7 @@ function mediaPhotographerFactory(data) {
     const h4 = document.createElement("h4");
 
     // attribution des valeurs
-    article.setAttribute("tabindex", "0")
+    // article.setAttribute("tabindex", "0")
 
     link.setAttribute("title", title);
     link.setAttribute("aria-label", title);
@@ -132,14 +135,20 @@ function mediaPhotographerFactory(data) {
 
     // calcul du nombre total des likes si l'utilisateur like une media item
     heart.addEventListener("click", () => {
-      const isPressed = heart.getAttribute("aria-pressed") === "true";
-      const newLikes = isPressed ? totalLikes - 1 : totalLikes + 1;
-      totalLikes = newLikes;
-      heart.setAttribute("aria-pressed", !isPressed);
-      heart.setAttribute("aria-label", isPressed ? "je n'aime plus" : "j'aime");
-      h4.textContent = newLikes;
-      h4.setAttribute("aria-label", `aimé ${newLikes} fois`);
-      footer.innerHTML = `${newLikes}`;
+      const pressed =
+        heart.getAttribute("aria-pressed") === "true" ? "false" : "true";
+        heart.setAttribute("aria-pressed", pressed);
+      if (pressed === "true") {
+        h4.textContent = parseInt(h4.textContent) + 1;
+        totalLikes += 1;
+        heart.setAttribute("aria-label", "j'aime");
+      } else {
+        h4.textContent = parseInt(h4.textContent) - 1;
+        totalLikes -= 1;
+        heart.setAttribute("aria-label", "je n'aime plus");
+      }
+      h4.setAttribute("aria-label", `aimé ${h4.textContent} fois`);
+      footer.innerHTML = `${totalLikes} `;
     });
 
     return article;

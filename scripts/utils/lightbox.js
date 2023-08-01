@@ -4,16 +4,39 @@
 // eslint-disable-next-line no-unused-vars
 function lightboxAddEventListener() {
   let allItemsLightboxLink = document.querySelectorAll(".itemLightboxLink");
-  // console.log(allItemsLightboxLink)
+  console.log(allItemsLightboxLink)
 
   // on boucle sur chaque élément média
   allItemsLightboxLink.forEach((itemLigthboxLink) => {
     itemLigthboxLink.addEventListener("click", (e) => {
       e.preventDefault();
-
+      console.log("test", e.target);
       // on détermine le type de media cliqué en fonction de la balise HTML
-      const type = e.target.tagName === "IMG" ? "picture" : "video";
-      const title = type === "picture" ? e.target.getAttribute("alt") : null;
+      // let type = "video";
+      // let title = e.target.getAttribute("aria-label");
+      // if (e.target.tagName === "IMG") {
+      //   type = "picture";
+      //   title = e.target.getAttribute("alt");
+      // }
+
+      function getInfoFromTarget(e) {
+        let type, title;
+      
+        switch (e.target.tagName) {
+          case "IMG":
+            type = "picture";
+            title = e.target.getAttribute("alt");
+            break;
+          default:
+            type = "video";
+            title = e.target.getAttribute("aria-label");
+            break;
+        }
+      
+        return { type, title };
+      }
+
+      const { type, title } = getInfoFromTarget(e);
 
       // avec les éléments récuperées on appelle la fonction qui affiche la lightbox
       openLightbox(title, {
@@ -27,6 +50,7 @@ function lightboxAddEventListener() {
 
 // ouverture de la lightbox en fonction du type de média
 function openLightbox(title, media) {
+  console.log("Type de média : ", media.type);
   // console.log(title, media);
   const modal = document.getElementById("lightbox-modal");
   // console.log(modal)
@@ -56,13 +80,16 @@ function openLightbox(title, media) {
     div.appendChild(imgModal);
   } else if (media.type === "video") {
     const video = document.createElement("video");
-    video.src = media.src;
+    // video.src = media.src;
+    video.setAttribute("src", media.src)
     video.setAttribute("controls", true);
     video.setAttribute("aria-label", title);
+    video.setAttribute("class", "video")
     div.appendChild(video);
   }
 
   // construction de la lightbox
+  p.setAttribute("class", "title");
   modal.appendChild(div);
   div.appendChild(p);
 }
@@ -112,7 +139,7 @@ function modalLightboxEvents() {
       const isVideo = nextImgSrc.endsWith(".mp4");
 
       // afficher le titre de l'élément média
-      const title = nextImage.title;
+      let title = nextImage.title;
       const p = document.createElement("p");
       p.textContent = title;
       p.setAttribute("class", "title");
@@ -123,6 +150,7 @@ function modalLightboxEvents() {
         video.src = nextImgSrc;
         video.setAttribute("controls", true);
         video.setAttribute("aria-label", title);
+        video.setAttribute("class", "video")
         lightbox.appendChild(video);
         lightbox.appendChild(p);
       } else {
@@ -176,6 +204,7 @@ function modalLightboxEvents() {
         video.src = prevImgSrc;
         video.setAttribute("controles", true);
         video.setAttribute("aria-label", title);
+        video.setAttribute("class", "video")
         lightbox.appendChild(video);
         lightbox.appendChild(p);
       } else {
@@ -189,10 +218,11 @@ function modalLightboxEvents() {
     });
   });
 
-  // naviguer la video avec les touches du clavier
+  // // naviguer la video avec les touches du clavier
   window.addEventListener("keydown", (e) => {
     if(e.key === ' ') {
-      const videoElement = document.querySelector("video");
+      const videoElement = document.querySelector(".video");
+      console.log(videoElement)
       e.preventDefault();
       if (videoElement.paused) {
         videoElement.play();
@@ -200,10 +230,11 @@ function modalLightboxEvents() {
         videoElement.pause();
       }
     }
-  });
+  });      
 
-  // naviguer la lightbox avec les touches du clavier
-  window.addEventListener("keydown", (e) => {
+
+  // // naviguer la lightbox avec les touches du clavier
+  window.addEventListener("keyup", (e) => {
     if (e.defaultPrevented) {
       return;
     }
